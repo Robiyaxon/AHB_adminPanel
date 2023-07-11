@@ -1,6 +1,5 @@
 import api from "../../utility/api";
 import {
-  GET_SERVICES,
   GET_COMMENTS,
   GET_CONSTRUCTIONS,
   GET_NAVIGATIONS,
@@ -38,18 +37,6 @@ export const getNavigations = () => async (dispatch) => {
     const res = await api.get("navigation");
     dispatch({
       type: GET_NAVIGATIONS,
-      payload: res.data,
-    });
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-export const getServices = () => async (dispatch) => {
-  try {
-    const res = await api.get("ourService");
-    dispatch({
-      type: GET_SERVICES,
       payload: res.data,
     });
   } catch (err) {

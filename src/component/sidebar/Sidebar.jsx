@@ -11,6 +11,7 @@ import { logout } from "../../redux/actions/authAction";
 import { List } from "../list/List";
 import { AddPatient } from "../news/AddPatient";
 import { Jobs } from "../news/Jobs";
+import { Assessment } from "../news/Assessment";
 
 const { Header, Sider } = Layout;
 function LogOut(params) {
@@ -59,7 +60,7 @@ export class Sidebar extends React.Component {
           <div className="logo">
             {!collapsed ? (
               <>
-                <AdminPanelSettingsIcon /> Admin
+                <AdminPanelSettingsIcon /> OTM Admin
               </>
             ) : (
               <AdminPanelSettingsIcon />
@@ -72,6 +73,9 @@ export class Sidebar extends React.Component {
             <Menu.Item key="2" icon={<NewspaperIcon />}>
               <NavLink to={"application"}>Arizalar</NavLink>
             </Menu.Item>
+            <Menu.Item key="3" icon={<NewspaperIcon />}>
+              <NavLink to={"assessment"}>Baholash</NavLink>
+            </Menu.Item>
           </Menu>
         </Sider>
         <Layout className="site-layout">
@@ -80,6 +84,7 @@ export class Sidebar extends React.Component {
             <Route index element={<Jobs />} />
             <Route path="jobs" element={<Jobs />} />
             <Route path="application" element={<AddPatient />} />
+            <Route path="assessment" element={<Assessment />} />
             <Route
               path="*"
               element={

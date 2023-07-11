@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Form, Input, Modal, Select, Table } from "antd";
+import { Button, Form, Modal, Table } from "antd";
 import { BreadcrumbHelpers, FieldHelpers } from "../../utility/Helpers";
 import { Content } from "antd/lib/layout/layout";
 import AddBoxIcon from "@mui/icons-material/AddBox";
@@ -9,23 +9,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAction } from "../../redux/actions/readAction";
 import { updateAction } from "../../redux/actions/updateAction";
 import { deleteAction } from "../../redux/actions/deleteAction";
-import { createAction } from "../../redux/actions/createAction";
 import {
-  CREATE_APPLICATION,
-  CREATE_JOBS,
-  DELETE_APPLICATION,
-  DELETE_JOBS,
-  GET_APPLICATION,
-  GET_JOBS,
-  UPDATE_APPLICATION,
-  UPDATE_JOBS,
+  CREATE_ASSESSMENT,
+  DELETE_ASSESSMENT,
+  GET_ASSESSMENT,
+  UPDATE_ASSESSMENT,
 } from "../../redux/actions/types";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { Option } from "antd/lib/mentions";
 
-export const Jobs = () => {
+export const Assessment = () => {
   const dispatch = useDispatch();
-  const { data } = useSelector((state) => state.jobsReducer);
+  const { data } = useSelector((state) => state.assessmentReducer);
   // const [data2, setData2] = useState([]);
   const [createVisible, setCreateVisible] = useState(false);
   const [editVisible, setEditVisible] = useState(false);
@@ -33,18 +27,33 @@ export const Jobs = () => {
   const [selectedEditID, setselectedEditID] = useState(null);
   const [visible, setVisible] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
-  const [name, setName] = useState('')
-  const [address, setAddress] = useState('')
-  const [require, setRequire] = useState('')
-  const [contact, setContact] = useState('')
-  const [salary, setSalary] = useState('')
-  const [deadline, setDeadline] = useState('')
+  const [name, setName] = useState("");
+  const [address, setAddress] = useState("");
+  const [require, setRequire] = useState("");
+  const [needToCome, setNeedToCome] = useState(0);
 
   const [form] = Form.useForm();
 
+  function sort_by_id() {
+    return function (elem1, elem2) {
+      const math1 = elem1.kelishi_kerak / 100
+      const math2 = elem2.kelishi_kerak / 100
+      const math1_2 = parseInt(elem1.kelganligi * math1)
+      const math2_2 = parseInt(elem2.kelganligi * math2)
+      if (math1_2 < math2_2) {
+        return -1;
+      } else if (math1_2 > math2_2) {
+        return 1;
+      } else {
+        return 0;
+      }
+    };
+  }
+  data.sort(sort_by_id())
+
 
   useEffect(() => {
-    dispatch(getAction("api/ishlar", GET_JOBS));
+    dispatch(getAction("api/baholash", GET_ASSESSMENT));
     // setData2(data);
   }, []);
 
@@ -58,12 +67,10 @@ export const Jobs = () => {
   const showEditModal = (id) => {
     setEditVisible(true);
     setselectedEditID(id);
-    setName(id.nomi);
-    setAddress(id.manzil);
-    setContact(id.contact);
-    setSalary(id.maosh);
-    setRequire(id.talablar);
-    setDeadline(id.mudat);
+    setName(id.OTM_nomi);
+    setAddress(id.biriktirilgan_masul);
+    setRequire(id.kelganligi);
+    setNeedToCome(id.kelishi_kerak);
   };
   const createHandleOk = () => {
     form
@@ -73,7 +80,7 @@ export const Jobs = () => {
         setCreateVisible(false);
         axios
           .post(
-              "https://oliytalim.pythonanywhere.com/" + "api/ishlar/",
+            "https://oliytalim.pythonanywhere.com/" + "api/baholash/",
             values,
             {
               headers: {
@@ -85,7 +92,7 @@ export const Jobs = () => {
             axios
               .get(
                 process.env.REACT_APP_API_URL ||
-                  "https://oliytalim.pythonanywhere.com/" + "api/ishlar/",
+                  "https://oliytalim.pythonanywhere.com/" + "api/baholash/",
                 {
                   headers: {
                     "Content-Type": "application/json",
@@ -95,7 +102,7 @@ export const Jobs = () => {
               )
               .then(function (res) {
                 dispatch({
-                  type: CREATE_JOBS,
+                  type: CREATE_ASSESSMENT,
                   payload: res.data,
                 });
               })
@@ -119,7 +126,12 @@ export const Jobs = () => {
         form.resetFields();
         setEditVisible(false);
         dispatch(
-          updateAction("api/ishlar", UPDATE_JOBS, selectedEditID.id, values)
+          updateAction(
+            "api/baholash",
+            UPDATE_ASSESSMENT,
+            selectedEditID.id,
+            values
+          )
         );
       })
       .catch((info) => {
@@ -129,11 +141,11 @@ export const Jobs = () => {
 
   const handleOk = () => {
     setConfirmLoading(true);
-    dispatch(deleteAction("api/ishlar", DELETE_JOBS, selectedID));
+    dispatch(deleteAction("api/baholash", DELETE_ASSESSMENT, selectedID));
     setTimeout(() => {
       setVisible(false);
       setConfirmLoading(false);
-      dispatch(getAction("api/ishlar", GET_JOBS));
+      dispatch(getAction("api/baholash", GET_ASSESSMENT));
     }, 1000);
   };
 
@@ -149,12 +161,27 @@ export const Jobs = () => {
 
   const columns = [
     { title: "ID", dataIndex: "id", key: "id" },
-    { title: "Nomi", dataIndex: "nomi", key: "nomi" },
-    { title: "Manzil", dataIndex: "manzil", key: "manzil" },
-    { title: "Talablar", dataIndex: "talablar", key: "talablar" },
-    { title: "Maosh", dataIndex: "maosh", key: "maosh" },
-    { title: "Contact", dataIndex: "contact", key: "contact" },
-    { title: "Muddat", dataIndex: "mudat", key: "mudat" },
+    { title: "OTM_nomi", dataIndex: "OTM_nomi", key: "OTM_nomi" },
+    {
+      title: "biriktirilgan_masul",
+      dataIndex: "biriktirilgan_masul",
+      key: "biriktirilgan_masul",
+    },
+    { title: "kelganligi", dataIndex: "kelganligi", key: "kelganligi" },
+    {
+      title: "Kelishi kerak",
+      dataIndex: "kelishi_kerak",
+      key: "kelishi_kerak",
+    },
+    {
+      title: "foiz",
+      key: "kelishi_kerak",
+      dataIndex: "",
+      render: (text) => {
+        const math = text.kelishi_kerak / 100;
+        return <p>{parseInt(text.kelganligi * math)}</p>;
+      },
+    },
     {
       title: (
         <>
@@ -179,32 +206,26 @@ export const Jobs = () => {
               }}
             >
               <FieldHelpers
-                label="Nomi"
-                name="nomi"
-                message="Iltimos Nomi qatorini yo'ldiring!"
+                label="OTM_nomi"
+                name="OTM_nomi"
+                message="Iltimos OTM_nomi qatorini yo'ldiring!"
               />
 
               <FieldHelpers
-                label="Manzil"
-                name="manzil"
-                message="Iltimos Manzil qatorini yo'ldiring!"
+                label="Biriktirilgan_masul"
+                name="biriktirilgan_masul"
+                message="Iltimos Biriktirilgan_masul qatorini yo'ldiring!"
               />
 
               <FieldHelpers
-                label="Talablar"
-                name="talablar"
-                message="Iltimos Talablar qatorini yo'ldiring!"
-              />
-
-              <FieldHelpers
-                label="Maosh"
-                name="maosh"
-                message="Iltimos Maosh qatorini yo'ldiring!"
+                label="Kelganligi"
+                name="kelganligi"
+                message="Iltimos Kelganligi qatorini yo'ldiring!"
               />
               <FieldHelpers
-                label="Contact"
-                name="contact"
-                message="Iltimos Contact haqida qatorini yo'ldiring!"
+                label="Kelishi kerak"
+                name="kelishi_kerak"
+                message="Iltimos Kelishi kerak qatorini yo'ldiring!"
               />
             </Form>
           </Modal>
@@ -253,63 +274,44 @@ export const Jobs = () => {
               }}
               fields={[
                 {
-                  name: ["nomi"],
+                  name: ["OTM_nomi"],
                   value: name,
                 },
                 {
-                  name: ["manzil"],
+                  name: ["biriktirilgan_masul"],
                   value: address,
                 },
                 {
-                  name: ["talablar"],
+                  name: ["kelganligi"],
                   value: require,
                 },
                 {
-                  name: ["contact"],
-                  value: contact,
-                },
-                {
-                  name: ["maosh"],
-                  value: salary,
-                },
-                {
-                  name: ["mudat"],
-                  value: deadline,
+                  name: ["kelishi_kerak"],
+                  value: needToCome,
                 },
               ]}
             >
               <FieldHelpers
-                label="Nomi"
-                name="nomi"
-                message="Iltimos Nomi qatorini yo'ldiring!"
+                label="OTM_nomi"
+                name="OTM_nomi"
+                message="Iltimos OTM_nomi qatorini yo'ldiring!"
               />
 
               <FieldHelpers
-                label="Manzil"
-                name="manzil"
-                message="Iltimos Manzil qatorini yo'ldiring!"
+                label="Biriktirilgan_masul"
+                name="biriktirilgan_masul"
+                message="Iltimos Biriktirilgan_masul qatorini yo'ldiring!"
               />
 
               <FieldHelpers
-                label="Talablar"
-                name="talablar"
-                message="Iltimos Talablar qatorini yo'ldiring!"
-              />
-
-              <FieldHelpers
-                label="Maosh"
-                name="maosh"
-                message="Iltimos Maosh qatorini yo'ldiring!"
+                label="Kelganligi"
+                name="kelganligi"
+                message="Iltimos Kelganligi qatorini yo'ldiring!"
               />
               <FieldHelpers
-                label="Contact"
-                name="contact"
-                message="Iltimos Contact haqida qatorini yo'ldiring!"
-              />
-              <FieldHelpers
-                label="Muddat"
-                name="mudat"
-                message="Iltimos Muddat haqida qatorini yo'ldiring!"
+                label="Kelishi kerak"
+                name="kelishi_kerak"
+                message="Iltimos Kelishi kerak qatorini yo'ldiring!"
               />
             </Form>
           </Modal>
@@ -321,7 +323,7 @@ export const Jobs = () => {
   return (
     <>
       <Content style={{ margin: "0 16px" }}>
-        <BreadcrumbHelpers to={"home"} from={"ishlar"} />
+        <BreadcrumbHelpers to={"home"} from={"baholash"} />
 
         <Table columns={columns} dataSource={data} />
       </Content>

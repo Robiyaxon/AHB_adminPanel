@@ -32,7 +32,6 @@ export const AddPatient = () => {
 
   const [form] = Form.useForm();
   // const [data2, setData] = useState("");
-  console.log(data);
   useEffect(() => {
     dispatch(getAction("api/ariza/", CREATE_APPLICATION));
 
@@ -122,7 +121,6 @@ export const AddPatient = () => {
   const handleCancel = () => {
     setVisible(false);
   };
-  console.log(data)
 
   const columns = [
     { title: "ID", dataIndex: "id", key: "id", contact: "contact" },
@@ -285,7 +283,7 @@ export const AddPatient = () => {
   return (
     <>
       <Content style={{ margin: "0 16px" }}>
-        <BreadcrumbHelpers to={"home"} from={"a"} />
+        <BreadcrumbHelpers to={"home"} from={"arizalar"} />
 
         <Table columns={columns} dataSource={data} />
       </Content>

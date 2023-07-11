@@ -1,18 +1,8 @@
 import { combineReducers } from "redux";
 import authReducer from "./authReducer";
-import constructionReducer from './constructionReducer';
-import contactReducer from './contactReducer';
-import historyReducer from './historyReducer';
-import navigationReducer from './navigationReducer';
-import recentCommentReducer from './recentCommentReducer';
-import newsReducer from './newsReducer';
-import serviceReducer from './serviceReducer';
 import jobsReducer from './jobsReducer';
 import applicationReducer from './applicationReducer';
-import projectReducer from './projectReducer';
-import networkReducer from './networkReducer';
-import networkUrlReducer from './networkUrlReducer';
-import userCommentReducer from './userCommentReducer';
+import assessmentReducer from './assessmentReducer';
 
 const appReducer = combineReducers({
   authReducer,
@@ -25,7 +15,8 @@ const appReducer = combineReducers({
   // newsReducer,
   // serviceReducer,
   applicationReducer,
-  jobsReducer
+  jobsReducer,
+  assessmentReducer
   // projectReducer,
   // networkReducer,
   // networkUrlReducer,

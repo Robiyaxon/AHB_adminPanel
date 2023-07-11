@@ -116,7 +116,8 @@ export const FieldHelpers = ({
   required = true,
   message,
   inp = true,
-  children=''
+  children='',
+  checkbox=''
 }) => {
   return (
     <Form.Item
