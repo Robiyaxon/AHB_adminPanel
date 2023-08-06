@@ -1,19 +1,19 @@
-import { CREATE_NEWS, GET_NEWS } from "./../actions/types";
+import { CREATE_REGIONS, GET_REGIONS } from "./../actions/types";
 
 const initialState = {
   data: [],
 };
 
-const newsReducer = (state = initialState, action) => {
+const regionsReducer = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
-    case GET_NEWS:
+    case GET_REGIONS:
       return {
         ...state,
         data: payload,
       };
-    case CREATE_NEWS:
+    case CREATE_REGIONS:
       return {
         ...state,
         data: payload,
@@ -23,4 +23,4 @@ const newsReducer = (state = initialState, action) => {
   }
 };
 
-export default newsReducer;
+export default regionsReducer;

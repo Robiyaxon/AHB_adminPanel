@@ -46,14 +46,14 @@ td.ant-table-cell {
   overflow: auto;
 }
 
-input[type="file"] {
+/* input[type="file"] {
   color: transparent !important;
 }
 input[type="file"]::before {
   content: "Rasm Tanlang:";
   color: black;
   margin-right: 10px;
-}
+} */
 
 @media (min-width: 0) and (max-width: 717.9px) {
   .ant-table-cell {

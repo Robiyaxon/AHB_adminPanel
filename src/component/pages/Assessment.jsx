@@ -1,26 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { Button, Form, Modal, Table } from "antd";
-import { BreadcrumbHelpers, FieldHelpers } from "../../utility/Helpers";
-import { Content } from "antd/lib/layout/layout";
-import AddBoxIcon from "@mui/icons-material/AddBox";
-
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
+import AddBoxIcon from "@mui/icons-material/AddBox";
+import { Content } from "antd/lib/layout/layout";
+import { EditOutlined } from "@ant-design/icons";
+import axios from "axios";
+
 import { getAction } from "../../redux/actions/readAction";
 import { updateAction } from "../../redux/actions/updateAction";
 import { deleteAction } from "../../redux/actions/deleteAction";
+import { BreadcrumbHelpers, FieldHelpers } from "../../utility/Helpers";
 import {
   CREATE_ASSESSMENT,
   DELETE_ASSESSMENT,
   GET_ASSESSMENT,
   UPDATE_ASSESSMENT,
 } from "../../redux/actions/types";
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 
 export const Assessment = () => {
   const dispatch = useDispatch();
   const { data } = useSelector((state) => state.assessmentReducer);
-  // const [data2, setData2] = useState([]);
   const [createVisible, setCreateVisible] = useState(false);
   const [editVisible, setEditVisible] = useState(false);
   const [selectedID, setSelectedID] = useState(null);
@@ -29,7 +28,6 @@ export const Assessment = () => {
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
-  const [require, setRequire] = useState("");
   const [needToCome, setNeedToCome] = useState(0);
 
   const [form] = Form.useForm();
@@ -54,7 +52,6 @@ export const Assessment = () => {
 
   useEffect(() => {
     dispatch(getAction("api/baholash", GET_ASSESSMENT));
-    // setData2(data);
   }, []);
 
   const showModal = (id) => {
@@ -69,7 +66,6 @@ export const Assessment = () => {
     setselectedEditID(id);
     setName(id.OTM_nomi);
     setAddress(id.biriktirilgan_masul);
-    setRequire(id.kelganligi);
     setNeedToCome(id.kelishi_kerak);
   };
   const createHandleOk = () => {
@@ -113,7 +109,6 @@ export const Assessment = () => {
           .catch((err) => {
             console.log(err);
           });
-        // dispatch(createAction("api/ishlar/", CREATE_JOBS, values));
       })
       .catch((info) => {
         console.log("Validate Failed:", info);
@@ -216,12 +211,6 @@ export const Assessment = () => {
                 name="biriktirilgan_masul"
                 message="Iltimos Biriktirilgan_masul qatorini yo'ldiring!"
               />
-
-              <FieldHelpers
-                label="Kelganligi"
-                name="kelganligi"
-                message="Iltimos Kelganligi qatorini yo'ldiring!"
-              />
               <FieldHelpers
                 label="Kelishi kerak"
                 name="kelishi_kerak"
@@ -235,9 +224,6 @@ export const Assessment = () => {
       key: "x",
       render: (text) => (
         <>
-          <Button type="danger" onClick={(e) => showModal(text.id)}>
-            <DeleteOutlined />
-          </Button>
           <Button type="primary" onClick={(e) => showEditModal(text)}>
             <EditOutlined />
           </Button>
@@ -282,10 +268,6 @@ export const Assessment = () => {
                   value: address,
                 },
                 {
-                  name: ["kelganligi"],
-                  value: require,
-                },
-                {
                   name: ["kelishi_kerak"],
                   value: needToCome,
                 },
@@ -301,12 +283,6 @@ export const Assessment = () => {
                 label="Biriktirilgan_masul"
                 name="biriktirilgan_masul"
                 message="Iltimos Biriktirilgan_masul qatorini yo'ldiring!"
-              />
-
-              <FieldHelpers
-                label="Kelganligi"
-                name="kelganligi"
-                message="Iltimos Kelganligi qatorini yo'ldiring!"
               />
               <FieldHelpers
                 label="Kelishi kerak"

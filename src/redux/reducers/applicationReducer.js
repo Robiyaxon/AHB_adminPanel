@@ -1,7 +1,7 @@
-import { GET_APPLICATION, CREATE_APPLICATION } from "../actions/types";
+import { GET_APPLICATION } from "../actions/types";
 
 const initialState = {
-  data: []
+  data: [],
 };
 
 const applicationReducer = (state = initialState, action) => {
@@ -11,13 +11,8 @@ const applicationReducer = (state = initialState, action) => {
     case GET_APPLICATION:
       return {
         ...state,
-        data: payload
+        data: payload,
       };
-      case CREATE_APPLICATION:
-        return {
-          ...state,
-          data: payload
-        }
     default:
       return state;
   }

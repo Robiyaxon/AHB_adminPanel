@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Form, Input, Modal, Select, Table } from "antd";
+import { Button, Form, Input, Modal, Table } from "antd";
 import { BreadcrumbHelpers, FieldHelpers } from "../../utility/Helpers";
 import { Content } from "antd/lib/layout/layout";
 import AddBoxIcon from "@mui/icons-material/AddBox";
@@ -9,44 +9,51 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAction } from "../../redux/actions/readAction";
 import { updateAction } from "../../redux/actions/updateAction";
 import { deleteAction } from "../../redux/actions/deleteAction";
-import { createAction } from "../../redux/actions/createAction";
 import {
-  CREATE_APPLICATION,
-  CREATE_JOBS,
-  DELETE_APPLICATION,
-  DELETE_JOBS,
-  GET_APPLICATION,
-  GET_JOBS,
-  UPDATE_APPLICATION,
-  UPDATE_JOBS,
+  CREATE_NEWS,
+  CREATE_REGIONS,
+  DELETE_NEWS,
+  DELETE_REGIONS,
+  GET_NEWS,
+  GET_REGIONS,
+  UPDATE_NEWS,
+  UPDATE_REGIONS,
 } from "../../redux/actions/types";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { Option } from "antd/lib/mentions";
 
-export const Jobs = () => {
+export const Regions = () => {
   const dispatch = useDispatch();
-  const { data } = useSelector((state) => state.jobsReducer);
-  // const [data2, setData2] = useState([]);
+  const { data } = useSelector((state) => state.regionsReducer);
   const [createVisible, setCreateVisible] = useState(false);
   const [editVisible, setEditVisible] = useState(false);
   const [selectedID, setSelectedID] = useState(null);
   const [selectedEditID, setselectedEditID] = useState(null);
   const [visible, setVisible] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
-  const [name, setName] = useState('')
-  const [address, setAddress] = useState('')
-  const [require, setRequire] = useState('')
-  const [contact, setContact] = useState('')
-  const [salary, setSalary] = useState('')
-  const [deadline, setDeadline] = useState('')
-
+  const [address, setAddress] = useState("");
+  const [population, setPopulation] = useState("");
+  const [area, setArea] = useState("");
+  const [project_num, setProject_num] = useState("");
+  const [job_num, setJob_num] = useState("");
+  const [img, setImg] = useState(null);
   const [form] = Form.useForm();
 
-
   useEffect(() => {
-    dispatch(getAction("api/ishlar", GET_JOBS));
-    // setData2(data);
+    dispatch(getAction("api/hududlar", GET_REGIONS));
   }, []);
+
+  if (!data) {
+    return <h1>Waiting...</h1>;
+  }
+  const onChange = async (e) => {
+    setAddress(e.target.form[1].value);
+    setPopulation(e.target.form[2].value);
+    setArea(e.target.form[3].value);
+    setProject_num(e.target.form[4].value);
+    setJob_num(e.target.form[5].value);
+
+    setImg(e.target.files[0]);
+  };
 
   const showModal = (id) => {
     setVisible(true);
@@ -58,12 +65,12 @@ export const Jobs = () => {
   const showEditModal = (id) => {
     setEditVisible(true);
     setselectedEditID(id);
-    setName(id.nomi);
     setAddress(id.manzil);
-    setContact(id.contact);
-    setSalary(id.maosh);
-    setRequire(id.talablar);
-    setDeadline(id.mudat);
+    setPopulation(id.aholi);
+    setArea(id.maydoni);
+    setProject_num(id.loyhalar_soni);
+    setJob_num(id.ish_joyi_soni);
+    setImg(id.img);
   };
   const createHandleOk = () => {
     form
@@ -71,13 +78,23 @@ export const Jobs = () => {
       .then((values) => {
         form.resetFields();
         setCreateVisible(false);
+
+        const formData = new FormData();
+        formData.append("img", img, img.name);
+
+        formData.append("manzil", values.manzil);
+        formData.append("aholi", values.aholi);
+        formData.append("maydoni", values.maydoni);
+        formData.append("loyhalar_soni", values.loyhalar_soni);
+        formData.append("ish_joyi_soni", values.ish_joyi_soni);
         axios
           .post(
-              "https://oliytalim.pythonanywhere.com/" + "api/ishlar/",
-            values,
+            "https://oliytalim.pythonanywhere.com/api/hududlar/",
+            formData,
             {
               headers: {
                 Authorization: `Token 2fa0d2a67200eb75c181d7cef3e5ca5e9ae73f1b`,
+                "Content-Type": "application/json",
               },
             }
           )
@@ -85,7 +102,7 @@ export const Jobs = () => {
             axios
               .get(
                 process.env.REACT_APP_API_URL ||
-                  "https://oliytalim.pythonanywhere.com/" + "api/ishlar/",
+                  "https://oliytalim.pythonanywhere.com/api/hududlar/",
                 {
                   headers: {
                     "Content-Type": "application/json",
@@ -95,7 +112,7 @@ export const Jobs = () => {
               )
               .then(function (res) {
                 dispatch({
-                  type: CREATE_JOBS,
+                  type: CREATE_REGIONS,
                   payload: res.data,
                 });
               })
@@ -106,7 +123,6 @@ export const Jobs = () => {
           .catch((err) => {
             console.log(err);
           });
-        // dispatch(createAction("api/ishlar/", CREATE_JOBS, values));
       })
       .catch((info) => {
         console.log("Validate Failed:", info);
@@ -118,10 +134,29 @@ export const Jobs = () => {
       .then((values) => {
         form.resetFields();
         setEditVisible(false);
+
+        const formData = new FormData();
+        if (!img.name) {
+          formData.append("img", img);
+        } else formData.append("img", img, img.name);
+
+        formData.append("manzil", values.manzil);
+        formData.append("aholi", values.aholi);
+        formData.append("maydoni", values.maydoni);
+        formData.append("loyhalar_soni", values.loyhalar_soni);
+        formData.append("ish_joyi_soni", values.ish_joyi_soni);
         dispatch(
-          updateAction("api/ishlar", UPDATE_JOBS, selectedEditID.id, values)
-        );
+          updateAction(
+            "api/hududlar",
+            UPDATE_REGIONS,
+            selectedEditID.id,
+            formData
+          )
+        ).catch((err) => {
+          console.log(err);
+        });
       })
+
       .catch((info) => {
         console.log("Validate Failed:", info);
       });
@@ -129,11 +164,11 @@ export const Jobs = () => {
 
   const handleOk = () => {
     setConfirmLoading(true);
-    dispatch(deleteAction("api/ishlar", DELETE_JOBS, selectedID));
+    dispatch(deleteAction("api/hududlar/", DELETE_REGIONS, selectedID));
     setTimeout(() => {
       setVisible(false);
       setConfirmLoading(false);
-      dispatch(getAction("api/ishlar", GET_JOBS));
+      dispatch(getAction("api/hududlar/", GET_REGIONS));
     }, 1000);
   };
 
@@ -148,13 +183,36 @@ export const Jobs = () => {
   };
 
   const columns = [
-    { title: "ID", dataIndex: "id", key: "id" },
-    { title: "Nomi", dataIndex: "nomi", key: "nomi" },
+    { title: "Id", dataIndex: "id", key: "id" },
     { title: "Manzil", dataIndex: "manzil", key: "manzil" },
-    { title: "Talablar", dataIndex: "talablar", key: "talablar" },
-    { title: "Maosh", dataIndex: "maosh", key: "maosh" },
-    { title: "Contact", dataIndex: "contact", key: "contact" },
-    { title: "Muddat", dataIndex: "mudat", key: "mudat" },
+    { title: "Aholi", dataIndex: "aholi", key: "aholi" },
+    { title: "Maydoni", dataIndex: "maydoni", key: "maydoni" },
+    {
+      title: "Loyhalar soni",
+      dataIndex: "loyhalar_soni",
+      key: "loyhalar_soni",
+    },
+    {
+      title: "Ish joyi soni",
+      dataIndex: "ish_joyi_soni",
+      key: "ish_joyi_soni",
+    },
+    {
+      title: "img",
+      dataIndex: "img",
+      key: "img",
+      render: (text) => {
+        console.log(text)
+        return(
+        <img
+          style={{
+            width: "100px",
+            // height:'100px' 
+          }}
+          src={text}
+        />
+      )},
+    },
     {
       title: (
         <>
@@ -177,12 +235,34 @@ export const Jobs = () => {
               initialValues={{
                 modifier: "public",
               }}
+              fields={[
+                {
+                  name: ["manzil"],
+                  value: address,
+                },
+                {
+                  name: ["aholi"],
+                  value: population,
+                },
+                {
+                  name: ["maydoni"],
+                  value: area,
+                },
+                {
+                  name: ["loyhalar_soni"],
+                  value: project_num,
+                },
+                {
+                  name: ["ish_joyi_soni"],
+                  value: job_num,
+                },
+                {
+                  name: ["img"],
+                  value: "",
+                },
+              ]}
             >
-              <FieldHelpers
-                label="Nomi"
-                name="nomi"
-                message="Iltimos Nomi qatorini yo'ldiring!"
-              />
+              <input type="file" name="img" onChange={onChange} />
 
               <FieldHelpers
                 label="Manzil"
@@ -191,20 +271,28 @@ export const Jobs = () => {
               />
 
               <FieldHelpers
-                label="Talablar"
-                name="talablar"
-                message="Iltimos Talablar qatorini yo'ldiring!"
-              />
-
-              <FieldHelpers
-                label="Maosh"
-                name="maosh"
-                message="Iltimos Maosh qatorini yo'ldiring!"
+                label="Aholi"
+                name="aholi"
+                message="Iltimos Aholi qatorini yo'ldiring!"
+                children=' '
               />
               <FieldHelpers
-                label="Contact"
-                name="contact"
-                message="Iltimos Contact haqida qatorini yo'ldiring!"
+                label="Maydoni"
+                name="maydoni"
+                message="Iltimos Maydoni qatorini yo'ldiring!"
+                children=" "
+              />
+              <FieldHelpers
+                label="Loyihalar soni"
+                name="loyhalar_soni"
+                message="Iltimos Loyihalar soni qatorini yo'ldiring!"
+                children=" "
+              />
+              <FieldHelpers
+                label="Ish joyi soni"
+                name="ish_joyi_soni"
+                message="Iltimos Ish joyi soni qatorini yo'ldiring!"
+                children=" "
               />
             </Form>
           </Modal>
@@ -253,36 +341,32 @@ export const Jobs = () => {
               }}
               fields={[
                 {
-                  name: ["nomi"],
-                  value: name,
-                },
-                {
                   name: ["manzil"],
                   value: address,
                 },
                 {
-                  name: ["talablar"],
-                  value: require,
+                  name: ["aholi"],
+                  value: population,
                 },
                 {
-                  name: ["contact"],
-                  value: contact,
+                  name: ["maydoni"],
+                  value: area,
                 },
                 {
-                  name: ["maosh"],
-                  value: salary,
+                  name: ["loyhalar_soni"],
+                  value: project_num,
                 },
                 {
-                  name: ["mudat"],
-                  value: deadline,
+                  name: ["ish_joyi_soni"],
+                  value: job_num,
+                },
+                {
+                  name: ["img"],
+                  value: img,
                 },
               ]}
             >
-              <FieldHelpers
-                label="Nomi"
-                name="nomi"
-                message="Iltimos Nomi qatorini yo'ldiring!"
-              />
+              <input type="file" name="img" onChange={onChange} />
 
               <FieldHelpers
                 label="Manzil"
@@ -291,25 +375,24 @@ export const Jobs = () => {
               />
 
               <FieldHelpers
-                label="Talablar"
-                name="talablar"
-                message="Iltimos Talablar qatorini yo'ldiring!"
-              />
-
-              <FieldHelpers
-                label="Maosh"
-                name="maosh"
-                message="Iltimos Maosh qatorini yo'ldiring!"
+                label="Aholi"
+                name="aholi"
+                message="Iltimos Aholi qatorini yo'ldiring!"
               />
               <FieldHelpers
-                label="Contact"
-                name="contact"
-                message="Iltimos Contact haqida qatorini yo'ldiring!"
+                label="Maydoni"
+                name="maydoni"
+                message="Iltimos Maydoni qatorini yo'ldiring!"
               />
               <FieldHelpers
-                label="Muddat"
-                name="mudat"
-                message="Iltimos Muddat haqida qatorini yo'ldiring!"
+                label="Loyihalar soni"
+                name="loyhalar_soni"
+                message="Iltimos Loyihalar soni qatorini yo'ldiring!"
+              />
+              <FieldHelpers
+                label="Ish joyi soni"
+                name="ish_joyi_soni"
+                message="Iltimos Ish joyi soni qatorini yo'ldiring!"
               />
             </Form>
           </Modal>
@@ -321,7 +404,7 @@ export const Jobs = () => {
   return (
     <>
       <Content style={{ margin: "0 16px" }}>
-        <BreadcrumbHelpers to={"home"} from={"ishlar"} />
+        <BreadcrumbHelpers to={"home"} from={"Regions"} />
 
         <Table columns={columns} dataSource={data} />
       </Content>

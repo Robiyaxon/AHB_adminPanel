@@ -1,19 +1,24 @@
 import React from "react";
-import "antd/dist/antd.css";
+import { useDispatch } from "react-redux";
 import { Button, Layout, Menu, Result } from "antd";
 import { ContactsOutlined } from "@ant-design/icons";
 import NewspaperIcon from "@mui/icons-material/Newspaper";
 import { Routes, Route, NavLink } from "react-router-dom";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
-import logo from "../../assets/logo.png";
-import { useDispatch } from "react-redux";
+
 import { logout } from "../../redux/actions/authAction";
-import { List } from "../list/List";
-import { AddPatient } from "../news/AddPatient";
-import { Jobs } from "../news/Jobs";
-import { Assessment } from "../news/Assessment";
+import { Application } from "../pages/Application";
+import { Assessment } from "../pages/Assessment";
+import { Jobs } from "../pages/Jobs";
+import { News } from "../pages/News";
+
+import logo from "../../assets/logo.png";
+
+import "antd/dist/antd.css";
+import { Regions } from "../pages/Regions";
 
 const { Header, Sider } = Layout;
+
 function LogOut(params) {
   const dispatch = useDispatch();
 
@@ -76,6 +81,12 @@ export class Sidebar extends React.Component {
             <Menu.Item key="3" icon={<NewspaperIcon />}>
               <NavLink to={"assessment"}>Baholash</NavLink>
             </Menu.Item>
+            <Menu.Item key="4" icon={<NewspaperIcon />}>
+              <NavLink to={"news"}>Yangiliklar</NavLink>
+            </Menu.Item>
+            <Menu.Item key="5" icon={<NewspaperIcon />}>
+              <NavLink to={"regions"}>Hududlar</NavLink>
+            </Menu.Item>
           </Menu>
         </Sider>
         <Layout className="site-layout">
@@ -83,8 +94,10 @@ export class Sidebar extends React.Component {
           <Routes>
             <Route index element={<Jobs />} />
             <Route path="jobs" element={<Jobs />} />
-            <Route path="application" element={<AddPatient />} />
+            <Route path="application" element={<Application />} />
             <Route path="assessment" element={<Assessment />} />
+            <Route path="news" element={<News />} />
+            <Route path="regions" element={<Regions />} />
             <Route
               path="*"
               element={

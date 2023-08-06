@@ -1,5 +1,5 @@
 import React from "react";
-import { Breadcrumb, Button, Form, Input } from "antd";
+import { Breadcrumb, Button, Form, Input, InputNumber } from "antd";
 import Modal from "antd/lib/modal/Modal";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 
@@ -117,7 +117,6 @@ export const FieldHelpers = ({
   message,
   inp = true,
   children='',
-  checkbox=''
 }) => {
   return (
     <Form.Item
@@ -130,7 +129,9 @@ export const FieldHelpers = ({
         },
       ]}
     >
-      {children ? null : 
+      {children ? <InputNumber style={{
+        width:'100%'
+      }} /> : 
       inp ? <Input /> : <Input.Password />}
     </Form.Item>
   );
