@@ -94,9 +94,15 @@ export const News = () => {
         setCreateVisible(false);
 
         const formData = new FormData();
-        formData.append("img", img, img.name);
-        formData.append("img_2", img_2, img_2.name);
-        formData.append("img_3", img_3, img_3.name);
+        if (!img) {
+          console.log('img');
+        } else formData.append("img", img, img.name);
+        if (!img_2) {
+          console.log('img_2');
+        } else formData.append("img_2", img_2, img_2.name);
+        if (!img_3) {
+          console.log('img_3');
+        } else formData.append("img_3", img_3, img_3?.name);
 
         formData.append("uz_title", values.uz_title);
         formData.append("uz_text", values.uz_text);
