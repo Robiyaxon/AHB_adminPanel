@@ -16,6 +16,7 @@ import {
   UPDATE_NEWS,
 } from "../../redux/actions/types";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import styled from "@emotion/styled";
 
 export const News = () => {
   const dispatch = useDispatch();
@@ -195,18 +196,35 @@ export const News = () => {
   const columns = [
     { title: "Id", dataIndex: "id", key: "id" },
     { title: "Sarlavha", dataIndex: "uz_title", key: "uz_title" },
-    { title: "Ma'lumot 1", dataIndex: "uz_text", key: "uz_text" },
-    { title: "Ma'lumot 2", dataIndex: "uz_text_2", key: "uz_text_2" },
-    { title: "Ma'lumot 3", dataIndex: "uz_text_3", key: "uz_text_3" },
+    { title: "Matn", dataIndex: "uz_text", key: "uz_text",
+    render: (text) => (
+      <p>
+{text.slice(0, 80)}...
+      </p>
+  
+    ),
+   },
+    { title: "Matn 2", dataIndex: "uz_text_2", key: "uz_text_2",     render: (text) => (
+      <p>
+{text.slice(0, 80)}...
+      </p>
+  
+    ),
+   },
+    { title: "Matn 3", dataIndex: "uz_text_3", key: "uz_text_3",    render: (text) => (
+      <p>
+{text.slice(0, 6)}...
+      </p>
+  
+    ),
+   },
     {
       title: "img",
       dataIndex: "img",
       key: "img",
       render: (text) => (
         <img
-          style={{
-            width: "100%",
-          }}
+          className={"img_news"}
           src={"https://oliytalim.pythonanywhere.com/" + text}
         />
       ),
@@ -217,9 +235,7 @@ export const News = () => {
       key: "img_2",
       render: (text) => (
         <img
-          style={{
-            width: "100%",
-          }}
+        className={"img_news"}
           src={"https://oliytalim.pythonanywhere.com/" + text}
         />
       ),
@@ -230,9 +246,7 @@ export const News = () => {
       key: "img_3",
       render: (text) => (
         <img
-          style={{
-            width: "100%",
-          }}
+        className={"img_news"}
           src={"https://oliytalim.pythonanywhere.com/" + text}
         />
       ),
@@ -290,10 +304,10 @@ export const News = () => {
                 },
               ]}
             >
-              <input type="file" name="img" onChange={onChange} />
+              <input className="input_img_file" type="file" name="img" onChange={onChange} />
 
-              <input type="file" name="img_2" onChange={onChange_2} />
-              <input type="file" name="img_3" onChange={onChange_3} />
+              <input className="input_img_file" type="file" name="img_2" onChange={onChange_2} />
+              <input className="input_img_file" type="file" name="img_3" onChange={onChange_3} />
 
               <FieldHelpers
                 label="Nomi"
@@ -305,16 +319,22 @@ export const News = () => {
                 label="Ma'lumot"
                 name="uz_text"
                 message="Iltimos Ma'lumot qatorini yo'ldiring!"
+                area={true}
+
               />
               <FieldHelpers
                 label="Ma'lumot 2"
                 name="uz_text_2"
                 message="Iltimos Ma'lumot 2 qatorini yo'ldiring!"
+                area={true}
+
               />
               <FieldHelpers
                 label="Ma'lumot 3"
                 name="uz_text_3"
                 message="Iltimos Ma'lumot 3 qatorini yo'ldiring!"
+                area={true}
+
               />
             </Form>
           </Modal>
@@ -392,30 +412,34 @@ export const News = () => {
                 },
               ]}
             >
-              <input type="file" name="img" onChange={onChange} />
-              <input type="file" name="img_2" onChange={onChange_2} />
-              <input type="file" name="img_3" onChange={onChange_3} />
+              <input className="input_img_file" type="file" name="img" onChange={onChange} />
+              <input type="file" className="input_img_file" name="img_2" onChange={onChange_2} />
+              <input type="file" className="input_img_file" name="img_3" onChange={onChange_3} />
 
               <FieldHelpers
                 label="Nomi"
                 name="uz_title"
                 message="Iltimos Nomi qatorini yo'ldiring!"
+                area={true}
               />
 
               <FieldHelpers
                 label="Ma'lumot"
                 name="uz_text"
                 message="Iltimos Ma'lumot qatorini yo'ldiring!"
+                area={true}
               />
               <FieldHelpers
                 label="Ma'lumot 2"
                 name="uz_text_2"
                 message="Iltimos Ma'lumot 2 qatorini yo'ldiring!"
+                area={true}
               />
               <FieldHelpers
                 label="Ma'lumot 3"
                 name="uz_text_3"
                 message="Iltimos Ma'lumot 3 qatorini yo'ldiring!"
+                area={true}
               />
             </Form>
           </Modal>

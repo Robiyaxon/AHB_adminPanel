@@ -2,6 +2,7 @@ import React from "react";
 import { Breadcrumb, Button, Form, Input, InputNumber } from "antd";
 import Modal from "antd/lib/modal/Modal";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import TextArea from "antd/lib/input/TextArea";
 
 export const BreadcrumbHelpers = ({ to, from }) => {
   return (
@@ -117,6 +118,7 @@ export const FieldHelpers = ({
   message,
   inp = true,
   children='',
+  area
 }) => {
   return (
     <Form.Item
@@ -129,7 +131,7 @@ export const FieldHelpers = ({
         },
       ]}
     >
-      {children ? <InputNumber style={{
+      {area ? <TextArea /> : children ? <InputNumber style={{
         width:'100%'
       }} /> : 
       inp ? <Input /> : <Input.Password />}

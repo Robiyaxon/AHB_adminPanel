@@ -205,10 +205,7 @@ export const Regions = () => {
         console.log(text)
         return(
         <img
-          style={{
-            width: "100px",
-            // height:'100px' 
-          }}
+        className={"img_news"}
           src={text}
         />
       )},
@@ -262,7 +259,7 @@ export const Regions = () => {
                 },
               ]}
             >
-              <input type="file" name="img" onChange={onChange} />
+              <input className="input_img_file" type="file" name="img" onChange={onChange} />
 
               <FieldHelpers
                 label="Manzil"
@@ -366,7 +363,7 @@ export const Regions = () => {
                 },
               ]}
             >
-              <input type="file" name="img" onChange={onChange} />
+              <input className="input_img_file" type="file" name="img" onChange={onChange} />
 
               <FieldHelpers
                 label="Manzil"

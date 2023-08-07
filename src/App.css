@@ -3,6 +3,14 @@
   height: 4px;
   width: 4px;
 }
+.img_news{
+  width: 110px;
+  height: 110px;
+  object-fit: cover;
+}
+.input_img_file{
+  margin: 1rem 1.2rem;
+}
 ::-webkit-scrollbar-thumb {
   background: #001529;
   border-radius: 10px;
