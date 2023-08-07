@@ -7,7 +7,7 @@ export const updateAction =
 console.log(data)
 
     try {
-      const res = await api.put(`${path}/${id}/`, data);
+      const res = await api.patch(`${path}/${id}/`, data);
       dispatch({
         type: actionType,
         payload: res.data,
