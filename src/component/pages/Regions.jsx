@@ -137,7 +137,7 @@ export const Regions = () => {
 
         const formData = new FormData();
         if (!img.name) {
-          formData.append("img", img);
+          console.log(img);
         } else formData.append("img", img, img.name);
 
         formData.append("manzil", values.manzil);
