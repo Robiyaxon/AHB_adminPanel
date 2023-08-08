@@ -181,7 +181,10 @@ export const Regions = () => {
   const handleCancel = () => {
     setVisible(false);
   };
-
+  data.sort(function(a, b) {
+    return a.id - b.id;
+  });
+  data.reverse();
   const columns = [
     { title: "Id", dataIndex: "id", key: "id" },
     { title: "Manzil", dataIndex: "manzil", key: "manzil" },

@@ -56,6 +56,10 @@ export const Jobs = () => {
     setRequire(id.talablar);
     setDeadline(id.mudat);
   };
+  data.sort(function(a, b) {
+    return a.id - b.id;
+  });
+  data.reverse();
   const createHandleOk = () => {
     form
       .validateFields()
