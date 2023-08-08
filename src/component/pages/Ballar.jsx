@@ -152,7 +152,6 @@ export const Ballash = () => {
   });
   data.reverse();
   const columns = [
-    { title: "ID", dataIndex: "id", key: "id" },
     { title: "Muassasa nomi", dataIndex: "nomi", key: "nomi" },
     { title: "O`quv ishlari", dataIndex: "oquv_ishlari", key: "oquv_ishlari" },
     { title: "Yoshlar masalalari", dataIndex: "yoshlar", key: "yoshlar" },

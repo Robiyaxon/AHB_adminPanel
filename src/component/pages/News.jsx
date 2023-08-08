@@ -16,8 +16,6 @@ import {
   UPDATE_NEWS,
 } from "../../redux/actions/types";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import styled from "@emotion/styled";
-
 export const News = () => {
   const dispatch = useDispatch();
   const { data } = useSelector((state) => state.newsReducer);
