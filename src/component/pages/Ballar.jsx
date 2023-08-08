@@ -154,14 +154,14 @@ export const Ballash = () => {
 
       children: [
         {
-          title: "Олиш мумкин бўлган максимал балл",
+          title: "Maksimal Ballar",
           dataIndex: "nomi",
           key: "nomi",
         },
       ],
     },
     {
-      title: "O`quv ishlari",
+      title: "O`quv ishlari bo`yicha",
       dataIndex: "oquv_ishlari",
       key: "oquv_ishlari",
       children: [
@@ -173,7 +173,7 @@ export const Ballash = () => {
       ],
     },
     {
-      title: "Yoshlar masalalari",
+      title: "Yoshlar masalalari bo`yicha",
       dataIndex: "yoshlar",
       key: "yoshlar",
       children: [
@@ -185,7 +185,7 @@ export const Ballash = () => {
       ],
     },
     {
-      title: "Ishlab chiqarish ta`limi",
+      title: "Ishlab chiqarish ta`limi bo`yicha",
       dataIndex: "ishlab_chiqarish",
       key: "ishlab_chiqarish",
       children: [
@@ -193,19 +193,19 @@ export const Ballash = () => {
       ],
     },
     {
-      title: "Moliyaviy ishalari",
+      title: "Moliyaviy ishalari bo`yicha",
       dataIndex: "moliyaviy",
       key: "moliyaviy",
       children: [{ title: "15", dataIndex: "moliyaviy", key: "moliyaviy" }],
     },
     {
-      title: "Xo'jalik ishlari",
+      title: "Xo'jalik ishlari bo`yicha",
       dataIndex: "xojalik",
       key: "xojalik",
       children: [{ title: "10", dataIndex: "xojalik", key: "xojalik" }],
     },
     {
-      title: "Ta`lim sifatini nazorat qilish",
+      title: "Talim sifatini nazarat kilish, Horijiy tillarni ommalashtirish, innovasiyalar masalalari ",
       dataIndex: "talim_sifati",
       key: "talim_sifati",
       children: [
@@ -213,7 +213,7 @@ export const Ballash = () => {
       ],
     },
     {
-      title: "Ijro intizomi",
+      title: "Ijro intizomi, kadrlar masalasi va boshqa masalalar",
       dataIndex: "ijro_intizomi",
       key: "ijro_intizomi",
       children: [
