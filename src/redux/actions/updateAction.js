@@ -1,6 +1,6 @@
 import api from "../../utility/api";
 import { getAction } from "./readAction";
-import { GET_NEWS, GET_APPLICATION, GET_JOBS, GET_ASSESSMENT, GET_REGIONS } from "./types";
+import { GET_NEWS, GET_APPLICATION, GET_JOBS, GET_ASSESSMENT, GET_REGIONS, GET_BALLAR } from "./types";
 
 export const updateAction =
   (path, actionType, id, data) => async (dispatch) => {
@@ -26,6 +26,9 @@ console.log(data)
       }
       if (path === "api/hududlar") {
         dispatch(getAction("api/hududlar/", GET_REGIONS));
+      }
+      if (path === "api/ballash") {
+        dispatch(getAction("api/ballash/", GET_BALLAR));
       }
     } catch (err) {
       console.log(err);

@@ -16,6 +16,7 @@ import logo from "../../assets/logo.png";
 
 import "antd/dist/antd.css";
 import { Regions } from "../pages/Regions";
+import { Ballash } from "../pages/Ballar";
 
 const { Header, Sider } = Layout;
 
@@ -79,13 +80,16 @@ export class Sidebar extends React.Component {
               <NavLink to={"application"}>Arizalar</NavLink>
             </Menu.Item>
             <Menu.Item key="3" icon={<NewspaperIcon />}>
-              <NavLink to={"assessment"}>Baholash</NavLink>
+              <NavLink to={"assessment"}>Davomat</NavLink>
             </Menu.Item>
             <Menu.Item key="4" icon={<NewspaperIcon />}>
               <NavLink to={"news"}>Yangiliklar</NavLink>
             </Menu.Item>
             <Menu.Item key="5" icon={<NewspaperIcon />}>
               <NavLink to={"regions"}>Hududlar</NavLink>
+            </Menu.Item>
+            <Menu.Item key="6" icon={<NewspaperIcon />}>
+              <NavLink to={"reyting"}>Muassa Reytingi</NavLink>
             </Menu.Item>
           </Menu>
         </Sider>
@@ -98,6 +102,7 @@ export class Sidebar extends React.Component {
             <Route path="assessment" element={<Assessment />} />
             <Route path="news" element={<News />} />
             <Route path="regions" element={<Regions />} />
+            <Route path="reyting" element={<Ballash />} />
             <Route
               path="*"
               element={

@@ -109,7 +109,7 @@ export const News = () => {
         formData.append("uz_text_2", values.uz_text_2);
         formData.append("uz_text_3", values.uz_text_3);
         axios
-          .post("https://oliytalim.pythonanywhere.com/api/news/", formData, {
+          .post("https://otfiv-andijon-admin.uz/api/news/", formData, {
             headers: {
               Authorization: `Token 2fa0d2a67200eb75c181d7cef3e5ca5e9ae73f1b`,
               "Content-Type": "application/json",
@@ -119,7 +119,7 @@ export const News = () => {
             axios
               .get(
                 process.env.REACT_APP_API_URL ||
-                  "https://oliytalim.pythonanywhere.com/api/news/",
+                  "https://otfiv-andijon-admin.uz/api/news/",
                 {
                   headers: {
                     "Content-Type": "application/json",
@@ -153,13 +153,13 @@ export const News = () => {
         setEditVisible(false);
 
         const formData = new FormData();
-        if (!img.name) {
+        if (!img || !img?.name) {
           console.log(img);
         } else formData.append("img", img, img.name);
-        if (!img_2.name) {
+        if (!img_2 || !img?.name) {
           console.log(img_2);
         } else formData.append("img_2", img_2, img_2.name);
-        if (!img_3.name) {
+        if (!img_3 || !img?.name) {
           console.log(img_3);
         } else formData.append("img_3", img_3, img_3?.name);
 
@@ -231,7 +231,7 @@ export const News = () => {
       render: (text) => (
         <img
           className={"img_news"}
-          src={"https://oliytalim.pythonanywhere.com/" + text}
+          src={"https://otfiv-andijon-admin.uz/" + text}
         />
       ),
     },
@@ -242,7 +242,7 @@ export const News = () => {
       render: (text) => (
         <img
         className={"img_news"}
-          src={"https://oliytalim.pythonanywhere.com/" + text}
+          src={"https://otfiv-andijon-admin.uz/" + text}
         />
       ),
     },
@@ -253,7 +253,7 @@ export const News = () => {
       render: (text) => (
         <img
         className={"img_news"}
-          src={"https://oliytalim.pythonanywhere.com/" + text}
+          src={"https://otfiv-andijon-admin.uz/" + text}
         />
       ),
     },

@@ -2,6 +2,7 @@ import { combineReducers } from "redux";
 import authReducer from "./authReducer";
 import jobsReducer from './jobsReducer';
 import newsReducer from './newsReducer';
+import BallarReduser from "./BallarReduser"
 import applicationReducer from './applicationReducer';
 import assessmentReducer from './assessmentReducer';
 import regionsReducer from './regionsReducer';
@@ -12,7 +13,8 @@ const appReducer = combineReducers({
   applicationReducer,
   jobsReducer,
   regionsReducer,
-  assessmentReducer
+  assessmentReducer,
+  BallarReduser
 });
 
 const rootReducer = (state, action) => {

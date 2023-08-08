@@ -10,7 +10,7 @@ const newsReducer = (state = initialState, action) => {
   switch (type) {
     case GET_NEWS:
       return {
-        ...state,
+         ...state,
         data: payload,
       };
     case CREATE_NEWS:

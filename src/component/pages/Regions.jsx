@@ -89,7 +89,7 @@ export const Regions = () => {
         formData.append("ish_joyi_soni", values.ish_joyi_soni);
         axios
           .post(
-            "https://oliytalim.pythonanywhere.com/api/hududlar/",
+            "https://otfiv-andijon-admin.uz/api/hududlar/",
             formData,
             {
               headers: {
@@ -102,7 +102,7 @@ export const Regions = () => {
             axios
               .get(
                 process.env.REACT_APP_API_URL ||
-                  "https://oliytalim.pythonanywhere.com/api/hududlar/",
+                  "https://otfiv-andijon-admin.uz/api/hududlar/",
                 {
                   headers: {
                     "Content-Type": "application/json",
@@ -202,7 +202,6 @@ export const Regions = () => {
       dataIndex: "img",
       key: "img",
       render: (text) => {
-        console.log(text)
         return(
         <img
         className={"img_news"}
