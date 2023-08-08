@@ -156,9 +156,9 @@ export const Assessment = () => {
 
   const columns = [
     { title: "ID", dataIndex: "id", key: "id" },
-    { title: "OTM_nomi", dataIndex: "OTM_nomi", key: "OTM_nomi" },
+    { title: "Muassasa nomi", dataIndex: "OTM_nomi", key: "OTM_nomi" },
     {
-      title: "biriktirilgan_masul",
+      title: "Biriktirilgan Masul",
       dataIndex: "biriktirilgan_masul",
       key: "biriktirilgan_masul",
     },
@@ -201,13 +201,13 @@ export const Assessment = () => {
               }}
             >
               <FieldHelpers
-                label="OTM_nomi"
+                label="Muassasa nomi"
                 name="OTM_nomi"
                 message="Iltimos OTM_nomi qatorini yo'ldiring!"
               />
 
               <FieldHelpers
-                label="Biriktirilgan_masul"
+                label="Biriktirilgan Masul"
                 name="biriktirilgan_masul"
                 message="Iltimos Biriktirilgan_masul qatorini yo'ldiring!"
               />
@@ -274,13 +274,13 @@ export const Assessment = () => {
               ]}
             >
               <FieldHelpers
-                label="OTM_nomi"
+                label="Muassasa nomi"
                 name="OTM_nomi"
                 message="Iltimos OTM_nomi qatorini yo'ldiring!"
               />
 
               <FieldHelpers
-                label="Biriktirilgan_masul"
+                label="Biriktirilgan Masul"
                 name="biriktirilgan_masul"
                 message="Iltimos Biriktirilgan_masul qatorini yo'ldiring!"
               />
