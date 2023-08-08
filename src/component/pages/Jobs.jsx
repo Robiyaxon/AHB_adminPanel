@@ -64,7 +64,7 @@ export const Jobs = () => {
         setCreateVisible(false);
         axios
           .post(
-              "https://oliytalim.pythonanywhere.com/" + "api/ishlar/",
+              "https://otfiv-andijon-admin.uz/" + "api/ishlar/",
             values,
             {
               headers: {
@@ -76,7 +76,7 @@ export const Jobs = () => {
             axios
               .get(
                 process.env.REACT_APP_API_URL ||
-                  "https://oliytalim.pythonanywhere.com/" + "api/ishlar/",
+                  "https://otfiv-andijon-admin.uz/" + "api/ishlar/",
                 {
                   headers: {
                     "Content-Type": "application/json",
