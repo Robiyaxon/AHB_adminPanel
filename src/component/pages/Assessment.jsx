@@ -76,7 +76,7 @@ export const Assessment = () => {
         setCreateVisible(false);
         axios
           .post(
-            "https://oliytalim.pythonanywhere.com/" + "api/baholash/",
+            "https://otfiv-andijon-admin.uz/" + "api/baholash/",
             values,
             {
               headers: {
@@ -88,7 +88,7 @@ export const Assessment = () => {
             axios
               .get(
                 process.env.REACT_APP_API_URL ||
-                  "https://oliytalim.pythonanywhere.com/" + "api/baholash/",
+                  "https://otfiv-andijon-admin.uz/" + "api/baholash/",
                 {
                   headers: {
                     "Content-Type": "application/json",
