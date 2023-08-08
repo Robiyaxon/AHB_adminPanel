@@ -43,22 +43,6 @@ export const Ballash = () => {
     dispatch(getAction("api/ballash", GET_BALLAR));
   }, []);
 
-  function sort_by_id() {
-    return function (elem1, elem2) {
-      const math1 = elem1.umumiy / 100
-      const math2 = elem2.umumiy / 100
-      const math1_2 = parseInt(elem1.kelganligi * math1)
-      const math2_2 = parseInt(elem2.kelganligi * math2)
-      if (math1_2 < math2_2) {
-        return -1;
-      } else if (math1_2 > math2_2) {
-        return 1;
-      } else {
-        return 0;
-      }
-    };
-  }
-  data.sort(sort_by_id())
 
   const showModal = (id) => {
     setVisible(true);
@@ -81,6 +65,7 @@ export const Ballash = () => {
     setIjro(id.ijro_intizomi);
     setJazo(id.jazo);
   };
+// console.log(sortedDesc);
   const createHandleOk = () => {
     form
       .validateFields()
@@ -162,7 +147,10 @@ export const Ballash = () => {
   const handleCancel = () => {
     setVisible(false);
   };
-
+  data.sort(function(a, b) {
+    return a.umumiy - b.umumiy;
+  });
+  data.reverse();
   const columns = [
     { title: "ID", dataIndex: "id", key: "id" },
     { title: "Muassasa nomi", dataIndex: "nomi", key: "nomi" },
@@ -179,9 +167,7 @@ export const Ballash = () => {
       key: "umumiy",
       dataIndex: "",
       render: (text) => {
-        const math = text.umumiy / 100;
-console.log(parseInt(text.umumiy * math))
-        return <p>{parseInt(text.umumiy * math)} ball</p>;
+        return <p>{parseInt(text.umumiy )} ball</p>;
       },
     },
     {
@@ -189,8 +175,15 @@ console.log(parseInt(text.umumiy * math))
       key: "Color",
       dataIndex: "",
       render: (text) => {
-        return <p>red</p>;
-      },
+        if(text.umumiy<50){
+          return <p className="red_error">Qoniqarsiz</p>;
+        }else if(text.umumiy>80){
+          return <p className="alo_error">A`lo</p>;
+        }else if(text.umumiy<80 || text.umumiy>50){
+          return <p className="blue_error">Yaxshi</p>;
+        }
+       
+      }
     },
     {
       title: (
