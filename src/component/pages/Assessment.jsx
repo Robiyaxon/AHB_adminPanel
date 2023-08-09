@@ -35,21 +35,20 @@ export const Assessment = () => {
 
   function sort_by_id() {
     return function (elem1, elem2) {
-      const math1 = elem1.kelganligi * 100
-      const math2 = elem2.kelganligi * 100
-      const math1_2 = parseInt(elem1.kelishi_kerak / math1)
-      const math2_2 = parseInt(elem2.kelishi_kerak / math2)
-      if (math1_2 < math2_2) {
+      const math1 = elem1.kelganligi * 100;
+      const math2 = elem2.kelganligi * 100;
+      const math1_2 = parseInt(math1 / elem1.kelishi_kerak);
+      const math2_2 = parseInt(math2 / elem2.kelishi_kerak);
+      if (math1_2 > math2_2) {
         return -1;
-      } else if (math1_2 > math2_2) {
+      } else if (math1_2 < math2_2) {
         return 1;
       } else {
         return 0;
       }
     };
   }
-  data.sort(sort_by_id())
-
+  data.sort(sort_by_id());
 
   useEffect(() => {
     dispatch(getAction("api/baholash", GET_ASSESSMENT));
@@ -68,7 +67,7 @@ export const Assessment = () => {
     setName(id.OTM_nomi);
     setAddress(id.biriktirilgan_masul);
     setNeedToCome(id.kelishi_kerak);
-    setKelganligi(id.kelganligi)
+    setKelganligi(id.kelganligi);
   };
   const createHandleOk = () => {
     form
@@ -77,15 +76,11 @@ export const Assessment = () => {
         form.resetFields();
         setCreateVisible(false);
         axios
-          .post(
-            "https://otfiv-andijon-admin.uz/" + "api/baholash/",
-            values,
-            {
-              headers: {
-                Authorization: `Token 2fa0d2a67200eb75c181d7cef3e5ca5e9ae73f1b`,
-              },
-            }
-          )
+          .post("https://otfiv-andijon-admin.uz/" + "api/baholash/", values, {
+            headers: {
+              Authorization: `Token 2fa0d2a67200eb75c181d7cef3e5ca5e9ae73f1b`,
+            },
+          })
           .then((res) => {
             axios
               .get(
@@ -163,7 +158,11 @@ export const Assessment = () => {
       dataIndex: "biriktirilgan_masul",
       key: "biriktirilgan_masul",
     },
-    { title: "O`quvchilar soni", dataIndex: "kelishi_kerak", key: "kelishi_kerak" },
+    {
+      title: "O`quvchilar soni",
+      dataIndex: "kelishi_kerak",
+      key: "kelishi_kerak",
+    },
     {
       title: "Ta`lim muassasiga kelmagan o`quvchilar soni",
       dataIndex: "kelganligi",
@@ -175,7 +174,7 @@ export const Assessment = () => {
       dataIndex: "",
       render: (text) => {
         const math = text.kelganligi * 100;
-        return <p>{parseInt( math / text.kelishi_kerak )} %</p>;
+        return <p>{parseInt(math / text.kelishi_kerak)} %</p>;
       },
     },
     {
@@ -230,8 +229,8 @@ export const Assessment = () => {
       key: "x",
       render: (text) => (
         <>
-         <Button type="danger" onClick={(e) => showModal(text.id)}>
-            <DeleteOutlined/>
+          <Button type="danger" onClick={(e) => showModal(text.id)}>
+            <DeleteOutlined />
           </Button>
           <Button type="primary" onClick={(e) => showEditModal(text)}>
             <EditOutlined />
@@ -302,7 +301,7 @@ export const Assessment = () => {
                 name="kelishi_kerak"
                 message="Iltimos Kelishi kerak qatorini yo'ldiring!"
               />
-                <FieldHelpers
+              <FieldHelpers
                 label="Ta`lim muassasiga kelmagan o`quvchilar soni"
                 name="kelganligi"
                 message="Iltimos Kelishi kerak qatorini yo'ldiring!"
