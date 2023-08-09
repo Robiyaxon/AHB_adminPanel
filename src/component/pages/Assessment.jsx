@@ -3,7 +3,7 @@ import { Button, Form, Modal, Table } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import { Content } from "antd/lib/layout/layout";
-import { EditOutlined } from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import axios from "axios";
 
 import { getAction } from "../../redux/actions/readAction";
@@ -28,16 +28,17 @@ export const Assessment = () => {
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
-  const [needToCome, setNeedToCome] = useState(0);
+  const [needToCome, setNeedToCome] = useState(null);
+  const [kelganligi, setKelganligi] = useState(null);
 
   const [form] = Form.useForm();
 
   function sort_by_id() {
     return function (elem1, elem2) {
-      const math1 = elem1.kelishi_kerak / 100
-      const math2 = elem2.kelishi_kerak / 100
-      const math1_2 = parseInt(elem1.kelganligi * math1)
-      const math2_2 = parseInt(elem2.kelganligi * math2)
+      const math1 = elem1.kelganligi * 100
+      const math2 = elem2.kelganligi * 100
+      const math1_2 = parseInt(elem1.kelishi_kerak / math1)
+      const math2_2 = parseInt(elem2.kelishi_kerak / math2)
       if (math1_2 < math2_2) {
         return -1;
       } else if (math1_2 > math2_2) {
@@ -67,6 +68,7 @@ export const Assessment = () => {
     setName(id.OTM_nomi);
     setAddress(id.biriktirilgan_masul);
     setNeedToCome(id.kelishi_kerak);
+    setKelganligi(id.kelganligi)
   };
   const createHandleOk = () => {
     form
@@ -155,26 +157,25 @@ export const Assessment = () => {
   };
 
   const columns = [
-    { title: "ID", dataIndex: "id", key: "id" },
     { title: "Muassasa nomi", dataIndex: "OTM_nomi", key: "OTM_nomi" },
     {
-      title: "Biriktirilgan Masul",
+      title: "Muassasa rahbari",
       dataIndex: "biriktirilgan_masul",
       key: "biriktirilgan_masul",
     },
-    { title: "kelganligi", dataIndex: "kelganligi", key: "kelganligi" },
+    { title: "O`quvchilar soni", dataIndex: "kelishi_kerak", key: "kelishi_kerak" },
     {
-      title: "Kelishi kerak",
-      dataIndex: "kelishi_kerak",
-      key: "kelishi_kerak",
+      title: "Ta`lim muassasiga kelmagan o`quvchilar soni",
+      dataIndex: "kelganligi",
+      key: "kelganligi",
     },
     {
-      title: "foiz",
-      key: "kelishi_kerak",
+      title: "Kelgan o`quvchilar foizi",
+      key: "foiz",
       dataIndex: "",
       render: (text) => {
-        const math = text.kelishi_kerak / 100;
-        return <p>{parseInt(text.kelganligi * math)}</p>;
+        const math = text.kelganligi * 100;
+        return <p>{parseInt( math / text.kelishi_kerak )} %</p>;
       },
     },
     {
@@ -207,13 +208,18 @@ export const Assessment = () => {
               />
 
               <FieldHelpers
-                label="Biriktirilgan Masul"
+                label="Muassasa rahbari"
                 name="biriktirilgan_masul"
                 message="Iltimos Biriktirilgan_masul qatorini yo'ldiring!"
               />
               <FieldHelpers
-                label="Kelishi kerak"
+                label="O`quvchilar soni"
                 name="kelishi_kerak"
+                message="Iltimos Kelishi kerak qatorini yo'ldiring!"
+              />
+              <FieldHelpers
+                label="Ta`lim muassasiga kelmagan o`quvchilar soni"
+                name="kelganligi"
                 message="Iltimos Kelishi kerak qatorini yo'ldiring!"
               />
             </Form>
@@ -224,6 +230,9 @@ export const Assessment = () => {
       key: "x",
       render: (text) => (
         <>
+         <Button type="danger" onClick={(e) => showModal(text.id)}>
+            <DeleteOutlined/>
+          </Button>
           <Button type="primary" onClick={(e) => showEditModal(text)}>
             <EditOutlined />
           </Button>
@@ -271,6 +280,10 @@ export const Assessment = () => {
                   name: ["kelishi_kerak"],
                   value: needToCome,
                 },
+                {
+                  name: ["kelganligi"],
+                  value: kelganligi,
+                },
               ]}
             >
               <FieldHelpers
@@ -280,13 +293,18 @@ export const Assessment = () => {
               />
 
               <FieldHelpers
-                label="Biriktirilgan Masul"
+                label="Muassasa rahbari"
                 name="biriktirilgan_masul"
                 message="Iltimos Biriktirilgan_masul qatorini yo'ldiring!"
               />
               <FieldHelpers
-                label="Kelishi kerak"
+                label="O`quvchilar soni"
                 name="kelishi_kerak"
+                message="Iltimos Kelishi kerak qatorini yo'ldiring!"
+              />
+                <FieldHelpers
+                label="Ta`lim muassasiga kelmagan o`quvchilar soni"
+                name="kelganligi"
                 message="Iltimos Kelishi kerak qatorini yo'ldiring!"
               />
             </Form>

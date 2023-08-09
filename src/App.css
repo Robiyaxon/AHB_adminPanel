@@ -23,6 +23,12 @@
   padding: 4px;
   background-color: blue;
 }
+.ant-table-tbody > tr > td{
+  text-align: center !important;
+}
+.ant-table-thead > tr > th{
+  text-align: center !important;
+}
 .blue_error{
   color: white;
   display: flex;
