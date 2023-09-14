@@ -316,9 +316,9 @@ export const Assessment = () => {
   return (
     <>
       <Content style={{ margin: "0 16px" }}>
-        <BreadcrumbHelpers to={"home"} from={"baholash"} />
+        <BreadcrumbHelpers to={"home"} from={"baholash"}  />
 
-        <Table columns={columns} dataSource={data} />
+        <Table columns={columns} dataSource={data} pagination={false}/>
       </Content>
     </>
   );
