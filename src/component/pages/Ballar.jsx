@@ -15,6 +15,7 @@ import {
   GET_BALLAR,
   UPDATE_BALLAR,
 } from "../../redux/actions/types";
+import style from "./Ballar.module.css"
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 
 export const Ballash = () => {
@@ -193,10 +194,17 @@ export const Ballash = () => {
       ],
     },
     {
-      title: "Moliyaviy ishalari bo`yicha",
+      title: <div className={style.Moliya}>
+      <p className={style.pName}>Moliyaviy ishar bo`yicha, Inavatsiyalar Masalalari</p>
+      <p>Moliyaviy ishlar (8 ball)</p>
+      <p>Inavatsiyalar masalalari (7 ball)</p>
+      </div>,
       dataIndex: "moliyaviy",
       key: "moliyaviy",
-      children: [{ title: "15", dataIndex: "moliyaviy", key: "moliyaviy" }],
+      children: [
+        { title: "15", dataIndex: "moliyaviy", key: "moliyaviy" },
+      ],
+      width: 500
     },
     {
       title: "Xo'jalik ishlari bo`yicha",
@@ -204,16 +212,25 @@ export const Ballash = () => {
       key: "xojalik",
       children: [{ title: "10", dataIndex: "xojalik", key: "xojalik" }],
     },
+
     {
-      title: "Talim sifatini nazarat kilish, Horijiy tillarni ommalashtirish, innovasiyalar masalalari ",
+      title: <div className={style.Moliya}>
+      <p className={style.pName}>Talim sifatini nazarat kilish, Horijiy tillarni ommalashtirish, innovasiyalar masalalari</p>
+      <p>Xorijiy til (10 ball)</p>
+      <p>Talim sifati (10 ball)</p>
+      </div>,
       dataIndex: "talim_sifati",
       key: "talim_sifati",
       children: [
         { title: "20", dataIndex: "talim_sifati", key: "talim_sifati" },
-      ],
+      ]
     },
     {
-      title: "Ijro intizomi, kadrlar masalasi va boshqa masalalar",
+      title: <div className={style.Moliya}>
+      <p className={style.pName}>Ijro intizomi, kadrlar masalasi va boshqa masalalar</p>
+      <p>Ijro intizomi (5 ball)</p>
+      <p>Kadr masalalari (5 ball)</p>
+      </div>,
       dataIndex: "ijro_intizomi",
       key: "ijro_intizomi",
       children: [
@@ -479,7 +496,7 @@ export const Ballash = () => {
       <Content style={{ margin: "0 16px" }}>
         <BreadcrumbHelpers to={"home"} from={"ishlar"} />
 
-        <Table columns={columns} dataSource={data} />
+        <Table columns={columns} dataSource={data} pagination={false} scroll={{ x: '1700px' }}/>
       </Content>
     </>
   );

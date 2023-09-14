@@ -1,8 +1,4 @@
-::-webkit-scrollbar {
-  background-color: transparent;
-  height: 4px;
-  width: 4px;
-}
+
 .img_news{
   width: 110px;
   height: 110px;
@@ -11,9 +7,8 @@
 .input_img_file{
   margin: 1rem 1.2rem;
 }
-::-webkit-scrollbar-thumb {
-  background: #001529;
-  border-radius: 10px;
+.ant-table-thead > tr > th, .ant-table-tbody > tr > td, .ant-table tfoot > tr > th, .ant-table tfoot > tr > td{
+  padding: 7px 7px !important;
 }
 .alo_error{
   color: white;
@@ -79,4 +74,7 @@
 
 .tableImg{
   height:100px
+}
+.ant-table-thead > tr > th {
+border: 1px solid rgb(228, 222, 222);
 }
